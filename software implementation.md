@@ -65,7 +65,7 @@ electrolarynx_filter.m
 - The code performs STFT on a predefined frame length and estimates the noise spectrum by choosing the minimum value of each frequency for the first 15 samples of audio.
 - Subsequently, the noise spectrum is updated using minimum statistics with a provision to adjust updation factor Lambda according to your requirement.
 - The noise spectrum is subtracted from the noisy audio with a pre-defined subtraction factor(alpha) for each frequency band to prevent speech distortion.
-- The audio signal is reconstructed with its initial phase and accounting for the 50% overlap introduced previously using the ifft function.
+- The audio signal is reconstructed with its initial phase and accounting for the 50% overlap introduced previously using the istft function.
 
 This combination aims to suppress the electrolarynx buzzing while preserving intelligibility and naturalness.
 
