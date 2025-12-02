@@ -82,21 +82,21 @@ The algorithm performs the following steps:
 
 -FRAME_LEN: number of time-domain samples per analysis frame (window length).
 
--OVERLAP: number of overlapping samples between consecutive frames (controls time/frequency tradeoff).
+-OVERLAP: number of overlapping samples between consecutive frames.
 
 -HOP_SIZE: frame hop (FRAME_LEN − OVERLAP); the advance between consecutive frames.
 
 -NFFT: FFT size used for forward/inverse transforms (must be ≥ FRAME_LEN and a power of two).
 
--SAMPLE_RATE: default sample rate used unless overridden by input WAV header.
+-SAMPLE_RATE: default sample rate used is 44.1kHz unless overridden by input WAV header.
 
--MAX_FRAMES: maximum number of STFT frames supported (safety / sizing limit).
+-MAX_FRAMES: maximum number of STFT frames supported to avoid overload.
 
 ### Noise estimation & spectral subtraction
 
--MIN_WIN: number of frames used by the minimum-statistics noise tracker (controls noise floor responsiveness).
+-MIN_WIN: number of frames used by the minimum-statistics noise tracker to form the initial noise spectrum.
 
--LAMBDA_D: smoothing factor for the adaptive noise estimate (closer to 1 = slower adaptation).
+-LAMBDA_D: smoothing factor for the adaptive noise estimate (closer to 1 = slower adaptation and vice versa).
 
 -SPECTRAL_FLOOR: relative spectral floor to prevent negative/very small magnitudes after subtraction.
 
@@ -104,7 +104,7 @@ The algorithm performs the following steps:
 
 -NUM_BANDS: number of frequency bands used for band-specific subtraction.
 
--alpha_factors[] — per-band subtraction scaling (higher = more aggressive noise reduction for that band); initialized in code with example values (tune for speech quality vs. musical noise).
+-alpha_factors[] — per-band subtraction scaling (higher = more aggressive noise reduction for that band), tune according to   your speech charactertics
 
 ---
 
