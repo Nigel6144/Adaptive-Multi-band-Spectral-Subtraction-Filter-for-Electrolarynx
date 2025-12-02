@@ -16,7 +16,7 @@ A hardware implementation of an electrolarynx speech enhancement filter deployed
 
 
 ## Folder Access
-- TO ACCESS THE FOLDER CLICK ON THIS LINK:
+- TO ACCESS THE PROJECT FOLDER CLICK ON THIS LINK:
   https://drive.google.com/drive/folders/1ZBnOQJu7pwbS7r5lpNrQUE1H33QCisqD?usp=sharing
 
 
