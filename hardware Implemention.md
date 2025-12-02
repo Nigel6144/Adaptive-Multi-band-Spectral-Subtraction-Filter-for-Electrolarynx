@@ -37,7 +37,7 @@ The algorithm performs the following steps:
 - AMD Vitis classic ( I used AMD Vitis 2024.2 )
 - AMD Vivado(Ver.2024.2).
 - SD Card ( Fat32 formatted and audio file in .wav format)
-- 
+  
 
 ## How to run
 ### AMD Vivado Block Design
