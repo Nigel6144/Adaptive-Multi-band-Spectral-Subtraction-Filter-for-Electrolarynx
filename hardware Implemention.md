@@ -12,7 +12,7 @@ A hardware implementation of an electrolarynx speech enhancement filter deployed
 - `hardware implmentaion.md` — This file.
 - Note:
   - Rename your script file to `electrolarynx_filter_ps.c` or modify usage instructions accordingly.
-  - Use AMD Vitis CLassic not AMD Vitis Unified Platform
+  - Use AMD Vitis Classic not AMD Vitis Unified Platform
 
 
 ## Folder Access
