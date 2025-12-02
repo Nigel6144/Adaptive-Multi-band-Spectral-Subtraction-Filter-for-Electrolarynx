@@ -57,13 +57,53 @@ The algorithm performs the following steps:
  
 ## Important parameters (in-script)
 
-- `frame_len` — STFT frame length in samples (default `64`). Smaller frames reduce latency but may reduce spectral resolution.
-- `overlap` — Overlap length between frames (default 32). Typical values are 50% of `frame_len`.
-- `nfft` — FFT length (default `512`). Choose >= `frame_len` for good spectral resolution.
-- `lambda_D` — Smoothing factor for noise tracking (default `0.85`). Higher values give slower adaptation while lower values introduce a musical artifact effect.
-- `min_win` — Minimum-statistics window length (frames) used to find local minima for noise (default `15`). Larger windows produce more conservative noise estimates.
-- `freq_bands` — Frequency band edges in Hz. Default in the script: `[0, 300, 1000, 2000, 3000, 5000, fs/2]`.
-- `alpha_factors` — Over-subtraction factor for each band (vector). Larger values remove more noise but may increase speech distortion. The default example uses `[1, 1.3, 1.6, 100, 100]` — **these extreme values may be placeholders**; tune them for your recordings.
+### Memory / storage
+
+-DDR_BASE_ADDR: base DDR address used as a temporary integer PCM buffer when reading/writing WAV data.
+
+-DDR_PROC_ADDR: start address in DDR reserved for all processing buffers (input/output, FFT, frames).
+
+-DDR_MEMORY_SIZE: size (bytes) of the DDR region reserved for processing; used to detect overflow of static allocations.
+
+-MAX_FILE_SIZE: maximum allowed input audio data size (bytes) to avoid trying to load very large files.
+
+-MAX_AUDIO_SAMPLES: safety limit on number of audio samples the algorithm will accept/process.
+
+### File I/O / WAV assumptions
+
+-input filename ("input.wav"): default input WAV file name the program expects on the SD card.
+
+-output filename ("input.wav"): default name used to write the enhanced audio back to the SD card.
+
+-WAV format assumptions: expects 16-bit PCM WAV; reads first channel only (multi-channel files are downmixed by selecting the first channel).
+
+### STFT / frame processing
+
+-FRAME_LEN: number of time-domain samples per analysis frame (window length).
+
+-OVERLAP: number of overlapping samples between consecutive frames (controls time/frequency tradeoff).
+
+-HOP_SIZE: frame hop (FRAME_LEN − OVERLAP); the advance between consecutive frames.
+
+-NFFT: FFT size used for forward/inverse transforms (must be ≥ FRAME_LEN and a power of two).
+
+-SAMPLE_RATE: default sample rate used unless overridden by input WAV header.
+
+-MAX_FRAMES: maximum number of STFT frames supported (safety / sizing limit).
+
+### Noise estimation & spectral subtraction
+
+-MIN_WIN: number of frames used by the minimum-statistics noise tracker (controls noise floor responsiveness).
+
+-LAMBDA_D: smoothing factor for the adaptive noise estimate (closer to 1 = slower adaptation).
+
+-SPECTRAL_FLOOR: relative spectral floor to prevent negative/very small magnitudes after subtraction.
+
+### Multi-band parameters
+
+-NUM_BANDS: number of frequency bands used for band-specific subtraction.
+
+-alpha_factors[] — per-band subtraction scaling (higher = more aggressive noise reduction for that band); initialized in code with example values (tune for speech quality vs. musical noise).
 
 ---
 
